@@ -1,0 +1,31 @@
+aside {
+    height: 100vh;
+}
+
+header {
+    text-align: center;
+}
+
+
+h2 {
+    margin: 20px;
+}
+
+figure {
+    border: 5px solid black;
+    width: 60vw!important
+  
+}
+
+#futureDays {
+    display: flex;
+
+
+}
+  
+.card {
+    border: 5px solid black;
+    width: 10vw;
+    margin: 20px
+
+}

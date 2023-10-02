@@ -10,6 +10,8 @@
     crossorigin="anonymous"
   />
 
+
+
   <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Document</title>
 </head>
@@ -17,24 +19,111 @@
 
 <!-- header (h1)with 'weather dashboard' at top. example has color gradient style  -->
 
+<header>
+    <h1>Weather Dashboard</h1>
+</header>
+
 
 <!-- search bar on left aside about 2/12th (for bootstrap) wide -->
+<!-- <div class="d-flex justify-content-between">...</div> -->
+<div id="parent" class="d-flex flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-primary">
+
+<aside class="col-12 col-md-3 bg-light p-3">
+    <h1 class="text-primary">Search for City</h1>
+    <form id="search-form" class="mb-2">
+      <input id="search-input" class="form-input w-100" type="text" placeholder="Search!">
+      <button class="btn btn-info btn-block">Search</button>
+      <hr>
+      <div></div> 
+      <!-- *search result buttons will go in this div  -->
+    </form>
+    </aside>
+  
 
 <!-- a h2 element with 'search for a city:' at top of aside  -->
-
 <!-- add a search bar textarea with a submit button underneath  -->
 
-<!-- submit button should have an on click to request api info, save textarea input, and append that input to page (if text input exists). alert if not. if theres time, turn alert into modal. -->
+<!-- TODO submit button should have an on click to request api info, save textarea input, and append that input to page (if text input exists). alert if not. if theres time, turn alert into modal. -->
 
 <!-- *auto complete for text box?  -->
 
-<!-- have a blank element underneath search bar to receive recent searches  -->
+<!-- TODO have a blank element underneath search bar to receive recent searches  -->
 
 <!-- *searches ul li combo for buttons? -->
 
-<!-- the search bar should append button elements of recent searches to the page and store that information to local storage (another reference to previously stated) -->
+<!-- TODO the search bar should append button elements of recent searches to the page and store that information to local storage (another reference to previously stated) -->
+
+
 
 <!-- main is comprised of two sections, top being last selected city with current date info of temp, wind, and humidity  -->
+<main>
+<figure id="currentDay" class="col-12 col-md-9 p-3 text-light">
+    <h2>forecast<span id="day0"></span></h2>
+    <div id="result-content"></div>
+    
+  </figure>
+  <h3>5-Day Forecast:</h3>
+  <section id="futureDays">
+  
+    
+    
+    <div class="card">
+        <h4 id="day1"></h4>
+            <ul>
+                <li class="temp">asdfas</li>
+                <li class="wind">asdfas</li>
+                <li class="humidity">asdf</li>
+            </ul>
+        
+    </div>
+
+    <div class="card">
+        <h4 id="day1"></h4>
+            <ul>
+                <li class="temp">asdfas</li>
+                <li class="wind">asdfas</li>
+                <li class="humidity">asdf</li>
+            </ul>
+        
+    </div>
+
+    <div class="card">
+        <h4 id="day1"></h4>
+            <ul>
+                <li class="temp">asdfas</li>
+                <li class="wind">asdfas</li>
+                <li class="humidity">asdf</li>
+            </ul>
+        
+    </div>
+
+    <div class="card">
+        <h4 id="day1"></h4>
+            <ul>
+                <li class="temp">asdfas</li>
+                <li class="wind">asdfas</li>
+                <li class="humidity">asdf</li>
+            </ul>
+        
+    </div>
+
+    <div class="card">
+        <h4 id="day1"></h4>
+            <ul>
+                <li class="temp">asdfas</li>
+                <li class="wind">asdfas</li>
+                <li class="humidity">asdf</li>
+            </ul>
+        
+    </div>
+
+
+
+
+
+  </section>
+</main>
+</div>
 
 <!-- second section is the 5 day forecast with 5 card elements inside, evenly spaced margins, a title of date (maybe h3 or h4), a emoji of sunny, cloudy, etc, and the same temp, wind, and humidity as the top section  -->
 
