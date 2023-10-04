@@ -28,7 +28,7 @@
     >
       <aside class="col-12 col-md-3 bg-light p-3">
         <h1 class="text-primary">Search for City</h1>
-        <form id="search-form" class="mb-2">
+        <form id="city" class="mb-2">
           <input
             id="search-input"
             class="form-input w-100"
@@ -37,7 +37,7 @@
           />
           <button id="searchBtn" class="btn btn-info btn-block">Search</button>
           <hr />
-          <div></div>
+          <div id="search-history"></div>
           <!-- *search result buttons will go in this div  -->
         </form>
       </aside>
@@ -58,8 +58,8 @@
       <!-- main is comprised of two sections, top being last selected city with current date info of temp, wind, and humidity  -->
       <main>
         <figure id="currentDay" class="col-12 col-md-9 p-3 text-light">
-          <h2>forecast<span id="today"></span></h2>
-          <div id="result-content"></div>
+          <!-- <h2>forecast<span id="today"></span></h2> -->
+          <div id="result-content" class="p-3 border"></div>
         </figure>
 
         <h3>5-Day Forecast:</h3>
@@ -86,6 +86,8 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

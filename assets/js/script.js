@@ -2,26 +2,232 @@ var apiKey = "63a571e51adddf10894d6404790f00a2";
 var searchBtnEl = document.getElementById("searchBtn");
 var searchFormEl = document.getElementById("search-form");
 var inputField = document.querySelector("#search-input");
-var testResult = document.querySelector('#result-content')
-var todayEl = document.getElementById("today");
+var currentDay = document.querySelector('#result-content')
+var dayjsCurrentDay = dayjs().format('MM/DD/YYYY');
+// var todayEl = document.getElementById("today");
 var forecastContainerEl = document.getElementById("forecastContainer")
+var searchHistoryEl = document.querySelector("#search-history")
 
+
+
+
+
+
+
+
+
+
+
+
+// takes coords and gives weather data for city 
 async function fetchWeather(coordsObj) {
+    console.log(coordsObj);
+    var { lat } = coordsObj;
+    var { lon } = coordsObj;
+    var { name } = coordsObj;
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
+  
+    const response = await fetch(forecastUrl);
+    const data = await response.json();
+  
+    console.log(data.city.name);
+    console.log(data.list[0].main.temp);
+    console.log(data.list[0].main.humidity);
+    console.log(data.list[0].wind.speed);
+    
+  
+  }
+function fetchWeather(coordsObj) {
   console.log(coordsObj);
   var { lat } = coordsObj;
   var { lon } = coordsObj;
   var { name } = coordsObj;
   var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
 
-  const response = await fetch(forecastUrl);
-  const data = await response.json();
-  
-  console.log(data.city.name);
-  console.log(data.list[0].main.temp);
-  console.log(data.list[0].main.humidity);
-  console.log(data.list[0].wind.speed);
 
+  fetch(forecastUrl)
+  .then(function (response) {
+      if (response.ok) {
+          return response.json();
+      }
+  })
+  .then(function (forecastData) {
+      console.log(forecastData);
+
+
+      var dayX = dayjs(dayjsCurrentDay);
+      forecastContainerEl[0].innerHTML = "";
+
+      for (let i = 0; i < forecastData.list.length; i++) {
+          const daysArr = forecastData.list[i];
+
+          if (dayjs(daysArr.dt_txt).isSame(dayX.add(1, "day"))) {
+              console.log("found next day");
+              //display day
+              displayForecast(daysArr);
+              //update dayX
+              dayX = dayjs(daysArr.dt_txt);
+          }
+      }
+  })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// takes coords and gives weather data for city 
+async function fetchWeather(coordsObj) {
+    console.log(coordsObj);
+    var { lat } = coordsObj;
+    var { lon } = coordsObj;
+    var { name } = coordsObj;
+    var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
+  
+    const response = await fetch(forecastUrl);
+    const data = await response.json();
+  
+    console.log(data.city.name);
+    console.log(data.list[0].main.temp);
+    console.log(data.list[0].main.humidity);
+    console.log(data.list[0].wind.speed);
+    
+  
+  }
+
+
+// function fetchWeather(coordsObj) {
+//   console.log(coordsObj);
+//   var { lat } = coordsObj;
+//   var { lon } = coordsObj;
+//   var { name } = coordsObj;
+//   var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
+
+
+//   fetch(forecastUrl)
+//   .then(function (response) {
+//       if (response.ok) {
+//           return response.json();
+//       }
+//   })
+//   .then(function (forecastData) {
+//       console.log(forecastData);
+
+
+//       var dayX = dayjs(dayjsCurrentDay);
+//       forecastContainerEl[0].innerHTML = "";
+
+//       for (let i = 0; i < forecastData.list.length; i++) {
+//           const daysArr = forecastData.list[i];
+
+//           if (dayjs(daysArr.dt_txt).isSame(dayX.add(1, "day"))) {
+//               console.log("found next day");
+//               //display day
+//               displayForecast(daysArr);
+//               //update dayX
+//               dayX = dayjs(daysArr.dt_txt);
+//           }
+//       }
+//   })
+// }
+
+
+
+//   const response = await fetch(forecastUrl);
+//   const data = await response.json();
+
+//   console.log(data.city.name);
+//   console.log(data.list[0].main.temp);
+//   console.log(data.list[0].main.humidity);
+//   console.log(data.list[0].wind.speed);
+
+
+
+
+  // building weather cards 
+
+
+function fetchWeather(data) {
+
+    var currentDate = document.createElement("h3");
+    var currentTemp = document.createElement("p");
+    var currentWind = document.createElement("p");
+    var currentHumidity = document.createElement("p");
+    currentDay.textContent = "";
+    currentDate.textContent = data.name + "  (" + dayjsCurrentDay + ")"
+    currentTemp.textContent = "Temp: " + data.list[0].main.temp + " °F";
+    currentWind.textContent = "Wind: " +data.list[0].wind.speed + " MPH";
+    currentHumidity.textContent = "Humidity: " + data.list[0].main.humidity + "%";
+    currentDay.append(currentDate);
+    currentDay.append(currentTemp);
+    currentDay.append(currentWind);
+    currentDay.append(currentHumidity);    
+}
+
+
+
+
+
+
+// display forecast 
+
+function displayFiveDay(data) {
+
+    var cardHTML = $(`
+    <div class="col">
+        <div class="card">
+        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" class="card-img-top" alt="${data.weather[0].description}">
+        <div class="card-body">
+            <h5 class="card-title">${dayjs(data.dt_txt).format("MM/DD/YYYY")}</h5>
+            <ul>
+            <li>Temp: ${data.main.temp} °F</li>
+            <li>Wind: ${data.wind.speed} MPH</li>
+            <li>Humidity: ${data.main.humidity}%</li>
+            </ul>
+        </div>
+        </div>
+    </div>
+    `);
+
+    forecastContainerEl.append(cardHTML);
+}
+
+  
+
+
+// gets city search coords 
 
 async function fetchCoords(city) {
   var testUrl = "https://api.openweathermap.org/geo/1.0/direct?q=";
@@ -31,9 +237,10 @@ async function fetchCoords(city) {
   const data = await response.json();
   console.log(data[0]);
 
+// create element example on main 
   var cityNameEl = document.createElement('h1')
   cityNameEl.innerHTML = data[0].name
-testResult.append(cityNameEl)
+currentDay.append(cityNameEl)
   fetchWeather(data[0]);
 }
 
@@ -53,26 +260,7 @@ function formSubmitHandler(event) {
 }
 
 
-function displayFiveDayWX(dayObj) {
 
-    var cardHTML = $(`
-    <div class="col">
-        <div class="card">
-        <img src="https://openweathermap.org/img/wn/${dayObj.weather[0].icon}@2x.png" class="card-img-top" alt="${dayObj.weather[0].description}">
-        <div class="card-body">
-            <h5 class="card-title">${dayjs(dayObj.dt_txt).format("MM/DD/YYYY")}</h5>
-            <ul>
-            <li>Temp: ${dayObj.main.temp} °F</li>
-            <li>Wind: ${dayObj.wind.speed} MPH</li>
-            <li>Humidity: ${dayObj.main.humidity}%</li>
-            </ul>
-        </div>
-        </div>
-    </div>
-    `);
-
-    fiveDayContainer.append(cardHTML);
-}
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
